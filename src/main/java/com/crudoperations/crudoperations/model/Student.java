@@ -1,6 +1,5 @@
 package com.crudoperations.crudoperations.model;
 
-
 import jakarta.persistence.*;
 
 

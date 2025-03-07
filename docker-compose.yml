@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
-  postgres-db:
+  postgres:
     image: postgres:latest
-    container_name: postgres_container
+    container_name: postgres_db
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -16,12 +14,30 @@ services:
 
   mongodb:
     image: mongo:latest
-    container_name: mongo_container
+    container_name: mongo_db
     restart: always
     ports:
       - "27017:27017"
     volumes:
-      - mongo_data:/data/db
+      - mongo_data:/data/db  # Persist MongoDB data
+
+  springboot-app:
+    image: my-springboot-app
+    container_name: springboot_app
+    build: .
+    restart: always
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/school
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=P@ssw0rd1
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo_db:27017/school
+      - APP_USERNAME=admin
+      - APP_PASSWORD=1234
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+      - mongodb
 
 volumes:
   postgres_data:

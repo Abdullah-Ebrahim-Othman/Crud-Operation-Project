@@ -1,7 +1,7 @@
 package com.crudoperations.crudoperations.service;
 
-import com.crudoperations.crudoperations.model.MongoStudent;
-import com.crudoperations.crudoperations.model.PostgresStudent;
+import com.crudoperations.crudoperations.model.ArchivedStudent;
+import com.crudoperations.crudoperations.model.Student;
 import com.crudoperations.crudoperations.repository.mongo.StudentMongoRepository;
 import com.crudoperations.crudoperations.repository.postgres.StudentPostgresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,49 +14,39 @@ import java.util.Optional;
 public class StutentService {
 
     @Autowired
-    private StudentPostgresRepository studentSqlRepository;
+    private StudentPostgresRepository postgresRepository;
 
     @Autowired
-    private StudentMongoRepository studentMongoRepository;
+    private StudentMongoRepository mongoRepository;
 
 
-    public List<PostgresStudent> geAllSqlStudents() {
-        return studentSqlRepository.findAll();
+    public List<Student> geAllSqlStudents() {
+        return postgresRepository.findAll();
     }
 
-    public List<MongoStudent> getAllMongoStudents() {
-        return studentMongoRepository.findAll();
+    public Optional<Student> getStudent(Integer id) {
+        return postgresRepository.findById(id);
     }
 
-    public Optional<PostgresStudent> getStudent(Integer id) {
-        return studentSqlRepository.findById(id);
+    public Optional<ArchivedStudent> getArchivedStudent(int id) {
+        return mongoRepository.findById(String.valueOf(id));
     }
 
-    public Optional<MongoStudent> getMongoStudent(int id) {
-        return studentMongoRepository.findById(String.valueOf(id));
+    public List<ArchivedStudent> getAllArchivedStudents() {
+        return mongoRepository.findAll();
     }
 
-    public void addStudent(PostgresStudent student) {
-        studentSqlRepository.save(student);
+    public void addStudent(Student student) {
+        postgresRepository.save(student);
     }
 
-    public void addStudentInMongo(MongoStudent student) {
-        studentMongoRepository.save(student);
+    public void updateStudent(Student student) {
+        postgresRepository.save(student);
     }
 
-    public void updateStudent(PostgresStudent student) {
-        studentSqlRepository.save(student);
-    }
-
-    public void updateStudentInMongo(MongoStudent student) {
-        studentMongoRepository.save(student);
-    }
 
     public void deleteStudent(int id) {
-        studentSqlRepository.deleteById(id);
+        postgresRepository.deleteById(id);
     }
 
-    public void deleteStudentInMongo(int id) {
-        studentMongoRepository.deleteById(String.valueOf(id));
-    }
 }
