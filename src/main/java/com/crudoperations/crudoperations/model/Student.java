@@ -5,16 +5,17 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Student")
+
 @EntityListeners(StudentListener.class)
 public class Student  {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
     private String level;
-    private double gpa;
-    private int age;
+    private Double gpa;
+    private Integer age;
     private String gender;
     private String address;
     private String phone;

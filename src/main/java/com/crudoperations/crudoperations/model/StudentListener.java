@@ -13,16 +13,14 @@ public class StudentListener {
 
     @PreRemove
     public void beforeDelete(Student student) {
-        System.out.println("Deleting Student from PostgresDB: " + student);
-        // Transfer the student to MongoDB before deletion
+        //System.out.println("Deleting Student from PostgresDB: " + student);
         ArchivedStudent archivedStudent = new ArchivedStudent(student);
         mongoRepository.save(archivedStudent);
     }
 
     @PostUpdate
     public void afterUpdate(Student student) {
-        System.out.println("Updating Student in MongoDB: " + student);
-        // Save updated student details in MongoDB
+        //System.out.println("Updating Student in MongoDB: " + student);
         ArchivedStudent archivedStudent = new ArchivedStudent(student);
         mongoRepository.save(archivedStudent);
     }

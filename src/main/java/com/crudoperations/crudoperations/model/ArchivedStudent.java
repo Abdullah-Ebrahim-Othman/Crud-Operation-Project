@@ -8,7 +8,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 public class ArchivedStudent {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private String id;
     private String name;

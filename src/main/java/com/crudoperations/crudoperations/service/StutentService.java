@@ -4,13 +4,16 @@ import com.crudoperations.crudoperations.model.ArchivedStudent;
 import com.crudoperations.crudoperations.model.Student;
 import com.crudoperations.crudoperations.repository.mongo.StudentMongoRepository;
 import com.crudoperations.crudoperations.repository.postgres.StudentPostgresRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class StutentService {
 
     @Autowired
@@ -40,8 +43,8 @@ public class StutentService {
         postgresRepository.save(student);
     }
 
-    public void updateStudent(Student student) {
-        postgresRepository.save(student);
+    public Student updateStudent(Student student) {
+        return postgresRepository.save(student); // Save updated student
     }
 
 
