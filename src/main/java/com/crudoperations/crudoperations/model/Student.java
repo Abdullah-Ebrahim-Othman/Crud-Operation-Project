@@ -1,14 +1,17 @@
 package com.crudoperations.crudoperations.model;
 
+
 import jakarta.persistence.*;
+
 
 @Entity
 @Table(name = "Student")
-public class MongoStudent {
+@EntityListeners(StudentListener.class)
+public class Student  {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private String id;
+    private int id;
     private String name;
     private String level;
     private double gpa;
@@ -17,10 +20,10 @@ public class MongoStudent {
     private String address;
     private String phone;
 
-    public MongoStudent() {};
+    public Student() {};
 
-    public MongoStudent(String name, String level, double gpa, int age,
-                           String gender, String address, String phone) {
+    public Student(String name, String level, double gpa, int age,
+                   String gender, String address, String phone) {
         this.name = name;
         this.level = level;
         this.gpa = gpa;
@@ -30,11 +33,11 @@ public class MongoStudent {
         this.phone = phone;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -96,7 +99,7 @@ public class MongoStudent {
 
     @Override
     public String toString() {
-        return "MongoStudent{" +
+        return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", level='" + level + '\'' +

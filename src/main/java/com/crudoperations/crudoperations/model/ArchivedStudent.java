@@ -1,17 +1,16 @@
 package com.crudoperations.crudoperations.model;
 
-
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
-@Entity
-@Table(name = "Student")
+@Document(collection = "students_archive")
 
-public class PostgresStudent {
+public class ArchivedStudent {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    private int id;
+    private String id;
     private String name;
     private String level;
     private double gpa;
@@ -20,24 +19,24 @@ public class PostgresStudent {
     private String address;
     private String phone;
 
-    public PostgresStudent() {};
+    public ArchivedStudent() {};
 
-    public PostgresStudent(String name, String level, double gpa, int age,
-                   String gender, String address, String phone) {
-        this.name = name;
-        this.level = level;
-        this.gpa = gpa;
-        this.age = age;
-        this.gender = gender;
-        this.address = address;
-        this.phone = phone;
-    }
+   public ArchivedStudent(Student student) {
+       this.id = String.valueOf(student.getId());
+       this.name = student.getName();
+       this.level = student.getLevel();
+       this.gpa = student.getGpa();
+       this.age = student.getAge();
+       this.gender = student.getGender();
+       this.address = student.getAddress();
+       this.phone = student.getPhone();
+   }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -99,7 +98,7 @@ public class PostgresStudent {
 
     @Override
     public String toString() {
-        return "PostgresStudent{" +
+        return "MongoStudent{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", level='" + level + '\'' +
