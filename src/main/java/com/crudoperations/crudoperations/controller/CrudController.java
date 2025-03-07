@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -18,31 +19,31 @@ public class CrudController {
     @GetMapping("/v1/students")
     public List<PostgresStudent> students() {
 
-        return service.getStudents();
+        return service.geAllSqlStudents();
     }
 
     @GetMapping("/v1/student{id}")
-    public PostgresStudent student(@PathVariable int id) {
+    public Optional<PostgresStudent> student(@PathVariable int id) {
 
         return service.getStudent(id);
     }
 
     @PostMapping("/v1/student")
-    public PostgresStudent addStudent(@RequestBody PostgresStudent student) {
+    public Optional<PostgresStudent> addStudent(@RequestBody PostgresStudent student) {
         service.addStudent(student);
         return service.getStudent(student.getId());
     }
 
     @PutMapping("/v1/student")
-    public PostgresStudent updateStudent(@RequestBody PostgresStudent student) {
+    public Optional<PostgresStudent> updateStudent(@RequestBody PostgresStudent student) {
         service.updateStudent(student);
         return service.getStudent(student.getId());
     }
 
     @DeleteMapping("/v1/student/{id}")
-    public PostgresStudent deleteStudent(@PathVariable int id) {
+    public Optional<PostgresStudent> deleteStudent(@PathVariable int id) {
 
-        PostgresStudent student = service.getStudent(id);
+        Optional<PostgresStudent> student = service.getStudent(id);
 
         service.deleteStudent(id);
 
